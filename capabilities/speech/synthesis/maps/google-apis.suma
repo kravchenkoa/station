@@ -1,0 +1,61 @@
+profile = "speech/synthesis@1.0"
+provider = "google-apis"
+
+"""
+Google apis text to speech synthesis map
+"""
+map TextToSpeechSynthesis {
+  encoding = call MapAudioEncoding(encoding = input.audio.encoding)
+
+  http POST "/v1/text:synthesize" {
+    security "apikey"
+    request {
+      body {
+        input = {
+          text: input.text
+        },
+        voice = {
+          languageCode: input.voice.languageCode,
+          name: input.voice.name
+        },
+        audioConfig = {
+          audioEncoding: encoding,
+          sampleRateHertz: input.audio.sampleRateHertz
+        }
+      }
+    }
+
+    response 200 "application/json" {
+      map result {
+        audioContent = body.audioContent
+      }
+    }
+
+    response 400 "application/json" {
+      map error {
+        title = (body.error.status === "INVALID_ARGUMENT") ? "Invalid argument" : "Bad request"
+        detail = body.error.message
+      }
+    }
+  }
+}
+
+operation MapAudioEncoding {
+  set {
+    result = (() => {
+      switch (args.encoding) {
+        case 'mp3':
+          return 'MP3'
+
+        case 'linear_pcm':
+          return 'LINEAR16'
+
+        default:
+          return 'unknown'
+      }
+    })()
+  }
+
+  return result
+}
+

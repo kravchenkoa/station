@@ -175,6 +175,14 @@
           "file": "./grid/delivery-tracking/shipment-info/maps/shippo.suma"
         }
       }
+    },
+    "speech/synthesis": {
+      "file": "./grid/speech/synthesis/profile.supr",
+      "providers": {
+        "google-apis": {
+          "file": "./grid/speech/synthesis/maps/google-apis.suma"
+        }
+      }
     }
   },
   "providers": {
@@ -282,6 +290,10 @@
           "apikey": "$SHIPPO_TOKEN"
         }
       ]
+    },
+    "google-cloud": {
+      "file": "../providers/google-cloud.json",
+      "security": []
     }
   }
 }

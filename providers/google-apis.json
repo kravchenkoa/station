@@ -4,6 +4,10 @@
     {
       "id": "default",
       "baseUrl": "https://maps.googleapis.com"
+    },
+    {
+      "id": "texttospeech",
+      "baseUrl": "https://texttospeech.googleapis.com"
     }
   ],
   "securitySchemes": [
