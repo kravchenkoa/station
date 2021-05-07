@@ -290,10 +290,6 @@
           "apikey": "$SHIPPO_TOKEN"
         }
       ]
-    },
-    "google-cloud": {
-      "file": "../providers/google-cloud.json",
-      "security": []
     }
   }
 }
