@@ -11,7 +11,7 @@ describe('speech/synthesis/google-apis-typed', () => {
     expect(usecase).not.toBeUndefined();
   });
 
-  it('should synthetise text to speech in linear_pcm encoding', async () => {
+  it('should synthetise text to speech encoded to linear_pcm', async () => {
     const client = new SuperfaceClient();
     const profile = await client.getProfile('speech/synthesis');
     const provider = await client.getProvider('google-apis');
@@ -37,6 +37,31 @@ describe('speech/synthesis/google-apis-typed', () => {
         .toString('ascii')
         .substring(0, 4)
     ).toBe('RIFF');
+  });
+
+  it('should synthetise text to speech encoded to mp3', async () => {
+    const client = new SuperfaceClient();
+    const profile = await client.getProfile('speech/synthesis');
+    const provider = await client.getProvider('google-apis');
+
+    // eslint-disable-next-line
+    const result = await profile.useCases.TextToSpeechSynthesis.perform(
+      {
+        text: 'Hello world!',
+        voice: { languageCode: 'en' },
+        audio: { encoding: 'mp3' },
+      },
+      {
+        provider: provider,
+      }
+    );
+    console.debug(result);
+    // eslint-disable-next-line
+    expect(result.isOk()).toBeTruthy();
+    // eslint-disable-next-line
+    const value = result.unwrap();
+    expect(value.audioContent).toBeDefined();
+    expect(Buffer.from(value.audioContent ?? '', 'base64')).toBeDefined();
   });
 
   it('should return invalid argument error', async () => {
