@@ -5,9 +5,11 @@ map TextToSpeechSynthesis {
   http POST "/instances/{input.instance}/v1/synthesize" {
     security "basic"
     request {
+      query {
+        voice = call mapVoiceOptionsToVoiceQueryParameter(voice = input.voice)
+      }
       headers {
         Accept = call mapEncodingToMimeType(audio = input.audio)
-        Voice = call mapVoiceOptioinsToVoiceHeaderValue(voice = input.voice)
       }
       body {
         text = input.text
@@ -54,8 +56,60 @@ operation mapEncodingToMimeType {
   return result
 }
 
-operation mapVoiceOptioinsToVoiceHeaderValue {
-  return args.voice.languageCode + '_' + args.voice.name
+operation mapVoiceOptionsToVoiceQueryParameter {
+  languageCode = (() => {
+    if(args.voice.languageCode.length > 2) return args.voice.languageCode
+    const defaultFullLanguageCodes = {
+      ar: 'ar-MS',
+      pt: 'pt-BR',
+      cn: 'zh-CN',
+      nl: 'nl-NL',
+      en: 'en-US',
+      es: 'es-ES',
+      fr: 'fr-FR',
+      de: 'de-DE',
+      it: 'it-IT',
+      jp: 'ja-JP',
+      ko: 'ko-KR'
+    }
+    if(!defaultFullLanguageCodes[args.voice.languageCode]) return 'en-US'
+
+    return defaultFullLanguageCodes[args.voice.languageCode]
+  })()
+
+  name = args.voice.name
+  set if(!name) {
+    name = call getDefaultVoiceName(languageCode = languageCode)
+  }
+
+  return languageCode + '_' + name
+}
+
+operation getDefaultVoiceName {
+  name = (() => {
+    const defaultLanguageCodeVoiceNames = {
+      'ar-MS': 'OmarVoice',
+      'pt-BR': 'IsabelaV3Voice',
+      'zh-CN': 'LiNaVoice',
+      'nl-NL': 'EmmaVoice',
+      'en-AU': 'CraigVoice',
+      'en-GB': 'CharlotteV3Voice',
+      'en-US': 'AllisonV3Voice',
+      'es-ES': 'EnriqueV3Voice',
+      'es-LA': 'SofiaV3Voice',
+      'es-US': 'SofiaV3Voice',
+      'fr-FR': 'NicolasV3Voice',
+      'de-DE': 'BirgitV3Voice',
+      'it-IT': 'FrancescaV3Voice',
+      'ja-JP': 'EmiV3Voice',
+      'ko-KR': 'HyunjunVoice'
+    }
+    if(!defaultLanguageCodeVoiceNames[args.languageCode]) return ''
+
+    return defaultLanguageCodeVoiceNames[args.languageCode]
+  })()
+
+  return name
 }
 
 operation base64Encode {
