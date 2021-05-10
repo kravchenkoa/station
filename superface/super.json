@@ -181,6 +181,16 @@
       "providers": {
         "google-apis": {
           "file": "./grid/speech/synthesis/maps/google-apis.suma"
+        },
+        "ibm-cloud": {
+          "file": "./grid/speech/synthesis/maps/ibm-cloud.suma",
+          "defaults": {
+            "TextToSpeechSynthesis": {
+              "input": {
+                "instance": "$IBM_CLOUD_SPEECH_TO_TEXT_INSTANCE"
+              }
+            }
+          }
         }
       }
     }
@@ -288,6 +298,16 @@
         {
           "id": "shippo_api_token",
           "apikey": "$SHIPPO_TOKEN"
+        }
+      ]
+    },
+    "ibm-cloud": {
+      "file": "../providers/ibm-cloud.json",
+      "security": [
+        {
+          "id": "basic",
+          "username": "apikey",
+          "password": "$IBM_CLOUD_KEY"
         }
       ]
     }
