@@ -27,13 +27,11 @@ describe('speech/synthesis/ibm-cloud-typed', () => {
         provider: provider,
       }
     );
-    console.debug(result);
     // eslint-disable-next-line
     expect(result.isOk()).toBeTruthy();
     // eslint-disable-next-line
     const value = result.unwrap();
     expect(value.audioContent).toBeDefined();
-    console.debug(value);
     expect(
       Buffer.from(value.audioContent ?? '', 'base64')
         .toString('ascii')
