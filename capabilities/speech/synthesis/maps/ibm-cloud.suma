@@ -21,6 +21,13 @@ map TextToSpeechSynthesis {
       }
     }
 
+    response 404 {
+       map error {
+        title = body.code_description
+        detail = body.error
+      }
+    }
+
   }
 }
 
