@@ -1,8 +1,14 @@
 import { CLIError } from '@oclif/errors';
+import {
+  createMap,
+  createProfile,
+  createProviderJson,
+} from '@superfaceai/cli/dist/logic/create';
+import { SuperJson } from '@superfaceai/one-sdk';
 import { grey } from 'chalk';
 
 import { Command } from '../common';
-import { createMap, createProfile, createProvider } from '../logic';
+import { CAPABILITIES_DIR, SUPER_JSON } from '../common/constants';
 
 export default class Create extends Command {
   static strict = false;
@@ -43,25 +49,59 @@ export default class Create extends Command {
       throw new CLIError('Invalid number of arguments', { exit: 1 });
     }
 
+    const loadedResult = await SuperJson.load(SUPER_JSON);
+    const superJson = loadedResult.unwrap();
+
     const type = argv[0];
     if (type === 'profile') {
       const documentName = argv[1] ?? argv[0];
-      const [scope, usecase] = documentName.split('/');
-      await createProfile(scope, usecase, { logCb: this.logCallback });
+      const [scope, name] = documentName.split('/');
+
+      await createProfile(
+        CAPABILITIES_DIR,
+        { scope, name, version: { major: 1 } },
+        [name],
+        superJson,
+        { logCb: this.logCallback }
+      );
 
       // Create map for mock provider
-      await createMap(scope, usecase, 'mock', { logCb: this.logCallback });
+      await createMap(
+        CAPABILITIES_DIR,
+        {
+          scope,
+          name,
+          provider: 'mock',
+          version: { major: 1 },
+        },
+        [name],
+        superJson,
+        { logCb: this.logCallback }
+      );
     } else if (type === 'map') {
-      const mapName = argv[2];
+      const provider = argv[2];
       const documentName = argv[1] ?? argv[0];
-      const [scope, usecase] = documentName.split('/');
-      if (!mapName) {
-        throw new CLIError('Missing map name argument', { exit: 1 });
+      const [scope, name] = documentName.split('/');
+      if (!provider) {
+        throw new CLIError('Missing provider name argument', { exit: 1 });
       }
-      await createMap(scope, usecase, mapName, { logCb: this.logCallback });
+      await createMap(
+        CAPABILITIES_DIR,
+        {
+          scope,
+          name,
+          provider,
+          version: { major: 1 },
+        },
+        [name],
+        superJson,
+        { logCb: this.logCallback }
+      );
     } else if (type === 'provider') {
-      const providerName = argv[1];
-      await createProvider(providerName, { logCb: this.logCallback });
+      const provider = argv[1];
+      await createProviderJson(CAPABILITIES_DIR, provider, superJson, {
+        logCb: this.logCallback,
+      });
     }
   }
 }
