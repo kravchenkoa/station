@@ -611,11 +611,6 @@
   resolved "https://registry.yarnpkg.com/@superfaceai/ast/-/ast-0.0.23.tgz#0e58a76b45c0a2dadc72499001d32d0c37cf4128"
   integrity sha512-9SKqJmC/g8caDZ9T4RcWm43D4f/UFCX57nX8a1J9dM0/GRtMq1fsPt+qcEmCTyys2Gt9JGzH8MDCBym2F92MBg==
 
-"@superfaceai/ast@0.0.25":
-  version "0.0.25"
-  resolved "https://registry.yarnpkg.com/@superfaceai/ast/-/ast-0.0.25.tgz#f8bb0d6d7e74932600c8326cd6c445540e42a952"
-  integrity sha512-5zSC2X+gqPiEvjKHcGLEjUsKJ4RNyXM8AmKhNSNw3CoahmSwftCFIL4YRHzeI+nnvh82qd5RbxNFeRt0Tn4adA==
-
 "@superfaceai/ast@0.0.28", "@superfaceai/ast@^0.0.28":
   version "0.0.28"
   resolved "https://registry.yarnpkg.com/@superfaceai/ast/-/ast-0.0.28.tgz#8953bda490515bdffdb18209360be44e8a9fa543"
@@ -673,16 +668,6 @@
     vm2 "^3.9.2"
     zod "^2.0.0-beta.30"
 
-"@superfaceai/parser@0.0.17":
-  version "0.0.17"
-  resolved "https://registry.yarnpkg.com/@superfaceai/parser/-/parser-0.0.17.tgz#ea9aa8454e42410fa48d3bfbb33f4d6ae61a1053"
-  integrity sha512-JMNq4K1KFX31YbNy9qxcIobtQE84Ty77Wbjij3iJwqHO9Ltm/BIHr7m2P+JrvBER8ZNsvG3zggwurewv9j0sbg==
-  dependencies:
-    "@superfaceai/ast" "0.0.23"
-    "@types/debug" "^4.1.5"
-    debug "^4.3.1"
-    typescript "~4.1"
-
 "@superfaceai/parser@0.0.21":
   version "0.0.21"
   resolved "https://registry.yarnpkg.com/@superfaceai/parser/-/parser-0.0.21.tgz#ff7c0b5f2d22d83ebc14eab1d15838467bd54f96"
@@ -707,13 +692,6 @@
   version "0.0.23"
   resolved "https://registry.yarnpkg.com/@superfaceai/service-client/-/service-client-0.0.23.tgz#7ad70368337dc97760b6b03f573f1bbc604624b7"
   integrity sha512-2SCy12wTqlfJja5Y2am3UK2vW9+oCJUgwrEze4SH6KqAwEFkj+USuLyATa4wk0uT2two4ySLsxuCucLn/9TSeA==
-  dependencies:
-    cross-fetch "^3.1.0"
-
-"@superfaceai/service-client@^0.0.14":
-  version "0.0.14"
-  resolved "https://registry.yarnpkg.com/@superfaceai/service-client/-/service-client-0.0.14.tgz#77f27d85bc7002d5302b01d3de15d074b9a7356d"
-  integrity sha512-4toq6QYMuOiH8yx6hmBB3QjeyDtSLDnYEkz8u7hj0DLLR6gZr2HSkjNVoKUJD63QYcU+FVHN9NQiP8MlFCubFw==
   dependencies:
     cross-fetch "^3.1.0"
 
