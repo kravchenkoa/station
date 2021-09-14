@@ -447,6 +447,10 @@
     "wttr-in": {
       "file": "../providers/wttr-in.json",
       "security": []
+    },
+    "open-weather-map": {
+      "file": "../providers/open-weather-map.json",
+      "security": []
     }
   }
 }
