@@ -10,7 +10,7 @@
 
   "securitySchemes": [
     {
-      "id": "apiKey",
+      "id": "apikey",
       "type": "apiKey",
       "in": "query",
       "name": "appid"

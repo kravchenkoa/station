@@ -20,6 +20,10 @@ export const currentCityTest = (providerName: string): void => {
       provider = await client.getProvider(providerName);
     });
 
+    it('should find profile', async () => {
+      expect(profile).not.toBeUndefined();
+    });
+
     it('should find provider', async () => {
       expect(provider).not.toBeUndefined();
     });

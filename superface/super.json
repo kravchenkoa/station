@@ -286,7 +286,8 @@
       "file": "./grid/weather/current-city/profile.supr",
       "priority": [
         "mock",
-        "wttr-in"
+        "wttr-in",
+        "open-weather-map"
       ],
       "providers": {
         "mock": {
@@ -294,6 +295,9 @@
         },
         "wttr-in": {
           "file": "./grid/weather/current-city/maps/wttr-in.suma"
+        },
+        "open-weather-map": {
+          "file": "./grid/weather/current-city/maps/open-weather-map.suma"
         }
       }
     }
@@ -450,7 +454,12 @@
     },
     "open-weather-map": {
       "file": "../providers/open-weather-map.json",
-      "security": []
+      "security": [
+        {
+          "id": "apikey",
+          "apikey": "$OPEN_WEATHER_MAP_API_KEY"
+        }
+      ]
     }
   }
 }
